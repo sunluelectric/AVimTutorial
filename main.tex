@@ -1,0 +1,160 @@
+\documentclass[a4paper]{article}
+% *** Packages
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{isomath}
+\usepackage{mathrsfs}
+\usepackage{subfigure}	
+\usepackage{fancyhdr}
+\usepackage{epstopdf}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,amsmath}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{comment}
+\usepackage{url}
+\usepackage{hyperref}
+
+
+\setlength{\parindent}{0pt}
+\parskip 5mm
+\renewcommand{\baselinestretch}{1.1}
+
+\title{A \textit{Vim} Tutorial}
+\author{sunlu.electric@gmail.com}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\textit{Vi IMproved (Vim)} is a clone, with additions, of Bill Joy's \textit{vi} text editor program for \textit{Unix}. \textit{Vim} is a free and open-source software initially developed by Bram Moolenaar, and has become the default text editor of many (if not all) \textit{Unix/Linux} based operating systems, some of which have only command-line based human-machine interface and \textit{Vim} is the only build-in text editor. In 2006, \textit{Vim} was voted the most popular editor amongst \textit{Linux Journal} readers.
+
+\section{Brief Introduction to \textit{Vim}}
+
+\textit{Vim} is a text editor that supports both text user interface and graphical user interface. In its graphical interface, \textit{gVim}, menus and toolbars for commonly used commands are integrated. However, it is mostly convenient and flexible when the text interface is used. \textit{Vim} also provides supports for $100+$ commonly used programming languages, thus is popular among programmers.
+
+\textit{Vim} has a built-in tutorial \textit{vimtutor} for the beginners. In a \textit{Linux} system where \textit{Vim} is installed, running command \colorbox{lightgray}{\texttt{vimtutor}} in shell starts the tutorial.
+
+\section{\textit{Vim} Modes}
+
+A total of 12 different editing modes are defined in \textit{Vim}, 6 of which are variants of the other 6 basic modes. Each mode has its unique functions and associated operating commands. Some of the most commonly used modes are given in Table \ref{tab:Modes}.
+\begin{table}
+  \centering \caption{Commonly used modes in \textit{Vim}.}\label{tab:Modes}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    Mode & Description \\ \hline
+    Normal & Default mode. It is used to navigate the cursor in the text, search and replace text pieces, and run basic text operations such as undo, redo, cut (delete), copy and paste. \\ \hdashline
+    Insert & It is used to insert keyboard inputs into the text, just like commonly used text editors today. \\ \hdashline
+    Visual & It is similar to Normal mode but areas of text can be highlighted. Normal mode commands can be used on the highlighted text. \\ \hdashline
+    Cmdline & It supports a single line command input, such as save and quit, at the bottom of the \textit{Vim} window. After running this command line, Vim quits Cmdline mode automatically. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+
+\section{Shortcut Keys}
+
+\textit{Vim} is highly customizable and shortcut keys can be defined and mapped with complicated operations. Some commonly built-in shortcut keys are given in Tables \ref{tab:SKeyModeSwitch}, \ref{tab:SKeyNavigate}, \ref{tab:SKeyCutCopyPaste}, \ref{tab:SKeySearchReplace} and \ref{tab:SKeySaveQuit}.
+
+\begin{table}
+  \centering \caption{Commonly used shortcut keys for mode switching.}\label{tab:SKeyModeSwitch}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    Shortcut Key & Description \\ \hline
+    \texttt{Esc} & Quit current mode and switch to Normal mode. \\ \hdashline
+    \texttt{Esc}\texttt{Esc} & Quickly quit current mode and switch to Normal mode. \\ \hdashline
+    \texttt{i} & Switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{I} & Switch to Insert mode from Normal mode and ignore blank space(s) of the current line. \\ \hdashline
+    \texttt{v} & Switch to Visual mode from Normal mode. \\ \hdashline
+    \texttt{:} & Switch to Cmdline mode from Normal mode. \\ \hdashline
+    \texttt{ce} & Delete the selected word and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{c\$}, \texttt{C} & Delete from the cursor to the end of the line and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{s} & Delete the selected character and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{S} & Delete current line and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{o} & Create a new line beneath the cursor and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{O} & Create a new line above the cursor and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{a} & Move the cursor to next character and switch to Insert mode from Normal mode. \\ \hdashline
+    \texttt{A} & Move the cursor to the end of the line and switch to Insert mode from Normal mode, i.e. amend to the current line. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}
+  \centering \caption{Commonly used shortcut keys in Normal mode for navigation.}\label{tab:SKeyNavigate}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    Shortcut Key & Description \\ \hline
+    \texttt{h},\texttt{j},\texttt{k},\texttt{l} & Navigate one character by $\leftarrow$, $\downarrow$, $\uparrow$, $\rightarrow$ respectively. \\ \hdashline
+    \texttt{gj},\texttt{gk} & Navigate on visual line by $\downarrow$, $\uparrow$ respectively. \\ \hdashline
+    (Number+)\texttt{w} & Navigate to the next word (repeat Number times). \\ \hdashline
+    (Number+)\texttt{W} & Navigate to the next word ignoring punctuation (repeat Number times). \\ \hdashline
+    (Number+)\texttt{b} & Navigate to the previous word (repeat Number times). \\ \hdashline
+    (Number+)\texttt{B} & Navigate to the previous word ignoring punctuation (repeat Number times). \\ \hdashline
+    \texttt{g} & Navigate to the beginning of the current line. \\ \hdashline
+    \texttt{gg} & Navigate to the first character of the text. \\ \hdashline
+    \texttt{G} & Navigate to the first character of the last line of the text. \\ \hdashline
+    Number + \texttt{G} & Navigate to the first character of Number-th line of the text. \\ \hdashline
+    \texttt{Ctrl+o} & Unplace cursor position. \\ \hdashline
+    \texttt{Ctrl+i} & Replace cursor position. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}
+  \centering \caption{Commonly used shortcut keys in Normal mode for cut (delete), copy, paste and other basic operations.}\label{tab:SKeyCutCopyPaste}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    Shortcut Key & Description \\ \hline
+    (Number+)\texttt{x} & Cut the selected character (repeat Number times). \\ \hdashline
+    (Number+)\texttt{dw} & Cut the selected word (repeat Number times). \\ \hdashline
+    \texttt{d\$} & Cut from the cursor to the end of the line. \\ \hdashline
+    (Number+)\texttt{dd} & Cut the selected line (repeat Number times). \\ \hdashline
+    \texttt{yw} & Copy the selected word. \\ \hdashline
+    \texttt{y\$} & Copy from the cursor to the end of the line. \\ \hdashline
+    \texttt{yy} & Copy the selected line. To copy multiple lines, it is mostly convenient to use Visual mode. \\ \hdashline
+    \texttt{P} & Paste the cut or copied content at the cursor. \\ \hdashline
+    \texttt{r}+Character & Replace the selected character with Character. \\ \hdashline
+    (Number+)\texttt{u} & Undo (repeat Number times). \\ \hdashline
+    (Number+)\texttt{R} & Redo (repeat Number times). \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}
+  \centering \caption{Commonly used shortcut keys for search and replace.}\label{tab:SKeySearchReplace}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    Shortcut Key & Description \\ \hline
+    \texttt{f}+Character  & Find the next appearance of Character. \\ \hdashline
+    \texttt{F}+Character  & Find the previous appearance of Character. \\ \hdashline
+    \texttt{/}+Word+\texttt{Enter}  & Find the next appearance of Word. \\ \hdashline
+    \texttt{?}+Word+\texttt{Enter}  & Find the next appearance of Word. \\ \hdashline
+    & Once an appearance of the word is found, use \texttt{n} to direct to the previous occurrence and \texttt{N} to the next occurrence. \\ \hdashline
+    \texttt{:\%s/OldString/NewString/g}  & Replace \texttt{OldString} with \texttt{NewString} in the text. \\ \hdashline
+    \texttt{:L1,L2 s/OldString/NewString/g}  & Replace \texttt{OldString} with \texttt{NewString} from \texttt{L1} to \texttt{L2} of the text. \\ \hdashline
+    & Replace \texttt{/g} with \texttt{/gc} so that each replacement of an instance needs confirm ``Y/N''. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}
+  \centering \caption{Commonly used shortcut keys for save, quit and OS admin.}\label{tab:SKeySaveQuit}
+  \begin{tabularx}{\textwidth}{lX}
+    \hline
+    Shortcut Key & Description \\ \hline
+    \texttt{:quit}, \texttt{:q}, \texttt{:exit}, \texttt{:x}, \texttt{ZZ} & Quit. \\ \hdashline
+    \texttt{:q!} & Quit without save. \\ \hdashline
+    \texttt{:wq} & Save and quit. \\ \hdashline
+    \texttt{:!}+LinuxCommand+\texttt{Enter} & This would temporarily return to OS and run LinuxCommand, then re-run \textit{Vim} environment. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\end{document} 
